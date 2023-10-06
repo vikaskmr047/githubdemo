@@ -1,0 +1,83 @@
+
+name: $(BuildDefinitionName)_$(date:yyyyMMdd)$(rev:.r)
+trigger:
+- dev
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  backendstorage_rg: 'tf-backend'
+  backendstorage: 'tfazcodebackup'
+  backendcontainer: 'tf-backend'
+  backendstoragekey: 'tf-backend'
+
+stages:
+  - stage: Install_Terraform
+    displayName: "Terraform configure"
+    jobs:
+      - job: download_terraform
+        steps:
+          - script: |
+              echo "Download terraform"
+              apt update
+              apt-get install unzip -y
+              wget https://releases.hashicorp.com/terraform/1.6.0/terraform_1.6.0_linux_amd64.zip
+      - job: install_terraform
+        steps:
+          - script: |
+              echo "installing terraform"
+              unzip terraform_1.6.0_linux_amd64.zip
+              mv terraform /usr/local/bin/
+              terraform --version
+  
+  - stage: init
+    jobs:
+      - job: terraform_init
+        continueOnError: false
+        
+        steps:
+          - task: TerraformTaskV4@4
+            displayName: 'terraform init'
+            inputs:
+              provider: 'azurerm'
+              command: 'init'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Tf-code'
+              backendServiceArm: 'Subscription-Alpha(b76fefda-dd9b-4b27-9231-0cb72e202232)'
+              backendAzureRmResourceGroupName: '$(backendstorage_rg)'
+              backendAzureRmStorageAccountName: '$(backendstorage)'
+              backendAzureRmContainerName: '$(backendcontainer)'
+              backendAzureRmKey: '$(backendstoragekey)'
+
+
+
+        
+  - stage: validate
+    jobs:
+      - job: terraform_validate
+        continueOnError: false
+        
+        steps:
+          - task: TerraformTaskV4@4
+            displayName: 'teraform validate'
+            inputs:
+              provider: 'azurerm'
+              command: 'validate'
+  
+  - stage: plan
+    jobs:
+      - job: terraform_plan
+        continueOnError: false
+        displayName: 'terraform plan'
+        steps:
+                    - 
+          - task: TerraformTaskV4@4
+            inputs:
+              provider: 'azurerm'
+              command: 'plan'
+              workingDirectory: '$(System.DefaultWorkingDirectory)/Tf-code'
+              environmentServiceNameAzureRM: 'Subscription-Alpha(b76fefda-dd9b-4b27-9231-0cb72e202232)'
+
+
+
+
