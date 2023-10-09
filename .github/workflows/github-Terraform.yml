@@ -1,0 +1,54 @@
+name: 'Terraform'
+
+on: 
+   push:
+     branches: 
+     - main
+   pull_request:
+
+jobs:
+  terrform:
+    name: 'Terraform'
+    env:
+        ARM_CLIENT_ID: ${{secrets.ARM_CLIENT_ID}}
+        ARM_CLIENT_SECRET: ${{secrets.ARM_CLIENT_SECRET}}
+        ARM_TENANT_ID: ${{secrets.ARM_TENANT_ID}}
+        ARM_SUBSCRIPTION_ID: ${{secrets.ARM_SUBSCRIPTION_ID}}
+    
+    runs-on: ubuntu-latest
+    environment: dev
+
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+ 
+      - uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.1.7
+        
+      - name: 'Terraform Format'   
+        id: fmt
+        run: terraform fmt
+        working-directory: './Tf-code'
+        continue-on-error: true
+
+      - name: 'Terraform init'
+        id: init
+        working-directory: './Tf-code'
+        run: terraform init
+
+      - name: 'Terraform plan'
+        id: plan
+        run: terraform plan
+        continue-on-error: false
+
+
+
+      
+
+
+    
