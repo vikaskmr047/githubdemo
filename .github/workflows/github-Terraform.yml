@@ -28,10 +28,10 @@ jobs:
       - name: Az CLI login
         uses: azure/login@v1
         with:
-          clientid: ${{ secrets.CLIENTID }}
+          client-id: ${{ secrets.CLIENTID }}
           clientsecret: ${{ secrets.CLIENTSECRET }}
-          tenantid: ${{ secrets.TENANT_ID }}
-          subscriptionid: ${{ secrets.SUBSCRIPTIONID }}
+          tenant-id: ${{ secrets.TENANTID }}
+          subscription-id: ${{ secrets.SUBSCRIPTIONID }}
           
       - name: 'Terraform Format'   
         id: fmt
