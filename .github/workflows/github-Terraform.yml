@@ -29,9 +29,9 @@ jobs:
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.CLIENTID }}
-          client-secret: ${{ secrets.CLIENTSECRET }}
           tenant-id: ${{ secrets.TENANTID }}
           subscription-id: ${{ secrets.SUBSCRIPTIONID }}
+          run: az login
           
       - name: 'Terraform Format'   
         id: fmt
