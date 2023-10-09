@@ -31,7 +31,7 @@ jobs:
           client-id: ${{ secrets.CLIENTID }}
           tenant-id: ${{ secrets.TENANTID }}
           subscription-id: ${{ secrets.SUBSCRIPTIONID }}
-          run: az login
+          enable-AzPSSession: true
           
       - name: 'Terraform Format'   
         id: fmt
