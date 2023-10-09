@@ -28,8 +28,8 @@ jobs:
 
       - name: install azure-cli
         run: |
-         apt-get update
-         apt-get install azure-cli
+         sudo apt-get update
+         sudo apt-get install azure-cli
     
       - name: Log in with Azure
         uses: azure/login@v1
