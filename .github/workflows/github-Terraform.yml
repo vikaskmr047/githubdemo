@@ -6,6 +6,7 @@ on:
      - feature
    pull_request:
 
+
 jobs:
   terrform:
     name: 'Terraform'
@@ -25,13 +26,10 @@ jobs:
         with:
           terraform_version: 1.1.7
     
-      - name: Az CLI login
+      - name: Log in with Azure
         uses: azure/login@v1
         with:
-          client-id: ${{ secrets.CLIENTID }}
-          tenant-id: ${{ secrets.TENANTID }}
-          subscription-id: ${{ secrets.SUBSCRIPTIONID }}
-          enable-AzPSSession: true
+          creds: '${{ secrets.AZURE_CREDENTIALS }}'
           
       - name: 'Terraform Format'   
         id: fmt
