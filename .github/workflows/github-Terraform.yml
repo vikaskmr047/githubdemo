@@ -25,11 +25,18 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.1.7
+
+      - name: install azure-cli
+        run: |
+         apt-get update
+         apt-get install azure-cli
     
       - name: Log in with Azure
         uses: azure/login@v1
         with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
+        env: 
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
           
       - name: 'Terraform Format'   
         id: fmt
