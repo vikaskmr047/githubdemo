@@ -24,10 +24,14 @@ jobs:
       - uses: hashicorp/setup-terraform@v2
         with:
           terraform_version: 1.1.7
-      - uses: Azure/login@v1
+    
+      - name: Az CLI login
+        uses: azure/login@v1
         with:
-          creds: '{"clientId":"${{secrets.ARM_CLIENT_ID}}","clientSecret":"${{secrets.ARM_CLIENT_SECRET}}","subscriptionId":"${{secrets.ARM_SUBSCRIPTION_ID}}","tenantId":"${{secrets.ARM_TENANT_ID}}"}'
-          run: azure login
+          clientid: ${{ secrets.CLIENTID }}
+          clientsecret: ${{ secrets.CLIENTSECRET }}
+          tenantid: ${{ secrets.TENANT_ID }}
+          subscriptionid: ${{ secrets.SUBSCRIPTIONID }}
           
       - name: 'Terraform Format'   
         id: fmt
