@@ -50,10 +50,11 @@ jobs:
         id: init
         working-directory: './Tf-code'
         env:
-          CLIENTID: ${{ secrets.CLIENTID }}
-          CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
-          TENANTID: ${{ secrets.TENANTID }}
-        run: terraform init -upgrade
+            TF_VAR_subscription_id: ${{ secrets.SUBSCRIPTIONID }}
+            TF_VAR_client_id: ${{ secrets.CLIENTID }}
+            TF_VAR_client_secret: ${{ secrets.CLIENTSECRET }}
+            TF_VAR_tenant_id: ${{ secrets.TENANTID }}
+        run: terraform init
 
       - name: 'Terraform plan'
         id: plan
