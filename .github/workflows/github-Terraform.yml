@@ -79,10 +79,8 @@ jobs:
   
 
       - name: 'Terraform init'
-        uses: hashicorp/setup-terraform@v2
         id: init
         working-directory: './Tf-code'
-
         run: terraform init
 
       - name: 'Terraform plan'
