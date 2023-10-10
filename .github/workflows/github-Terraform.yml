@@ -33,7 +33,7 @@ jobs:
     
       - name: Log in with Azure
         run:
-          az login --service-principal -u ${{CLIENTID}} -p ${{CLIENTSECRET}} --tenant ${{TENANTID}}
+          az login --service-principal -u ${{ secrets.CLIENTID }} -p ${{ secrets.CLIENTSECRET }} --tenant ${{ secrets.TENANTID }}
         # uses: azure/login@v1
         # with:
         #   creds: '${{ secrets.AZURE_CREDENTIALS }}'
