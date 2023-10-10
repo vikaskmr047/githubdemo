@@ -53,7 +53,7 @@ jobs:
           CLIENTID: ${{ secrets.CLIENTID }}
           CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
           TENANTID: ${{ secrets.TENANTID }}
-        run: terraform init
+        run: terraform init -verbose
 
       - name: 'Terraform plan'
         id: plan
