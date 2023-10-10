@@ -50,9 +50,9 @@ jobs:
         id: init
         working-directory: './Tf-code'
         env:
-          AZURE_RM_CLIENT_ID: ${{ secrets.CLIENTID }}
-          AZURE_RM_CLIENT_SECRET: ${{ secrets.CLIENTSECRET }}
-          AZURE_RM_TENANT_ID: ${{ secrets.TENANTID }}
+          CLIENTID: ${{ secrets.CLIENTID }}
+          CLIENTSECRET: ${{ secrets.CLIENTSECRET }}
+          TENANTID: ${{ secrets.TENANTID }}
         run: terraform init
 
       - name: 'Terraform plan'
