@@ -43,7 +43,7 @@ jobs:
          az --version
          terraform version
     
-      - name: Authenticate using a Service Principa
+      - name: Authenticate using a Service Principal
         uses: azure/login@v1
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
