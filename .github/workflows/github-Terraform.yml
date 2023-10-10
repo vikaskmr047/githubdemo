@@ -6,7 +6,12 @@ on:
      - feature
    pull_request:
 
-
+env:
+  ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
+  ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
+  ARM_CLIENT_SECRETt: ${{ secrets.ARM_CLIENT_SECRET }}
+  ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+  
 jobs:
   terrform:
     name: 'Terraform'
@@ -34,11 +39,7 @@ jobs:
       - name: Log in with Azure
         run:
           az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
-        # uses: azure/login@v1
-        # with:
-        #   creds: '${{ secrets.AZURE_CREDENTIALS }}'
-        # env: 
-        #   creds: ${{ secrets.AZURE_CREDENTIALS }}
+
           
       - name: 'Terraform Format'   
         id: fmt
@@ -47,13 +48,10 @@ jobs:
         continue-on-error: true
 
       - name: 'Terraform init'
+      
         id: init
         working-directory: './Tf-code'
-        env:
-          ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-          ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-          ARM_CLIENT_SECRETt: ${{ secrets.ARM_CLIENT_SECRET }}
-          ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
+
         run: terraform init
 
       - name: 'Terraform plan'
