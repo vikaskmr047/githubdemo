@@ -1,5 +1,6 @@
 name: 'Terraform'
 
+
 permissions:
   id-token: write
   contents: read
@@ -10,15 +11,12 @@ on:
      - feature
    pull_request:
 
-
-
-
-
   
 jobs:
   terrform:
     name: 'Terraform'
-    
+   
+
     env:
       ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
       ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
@@ -31,6 +29,7 @@ jobs:
     defaults:
       run:
         shell: bash
+        working-directory: ${{ env.tf_actions_working_dir }}
 
     steps:
       - name: Checkout
@@ -39,8 +38,7 @@ jobs:
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
         with:
-          # terraform_version: 1.1.7
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+          terraform_version: 1.1.7
 
       # - name: install azure-cli
       #   run: |
@@ -69,7 +67,6 @@ jobs:
       - name: 'Terraform Format'   
         id: fmt
         run: terraform fmt
-        working-directory: './Tf-code'
         continue-on-error: true
 
       - name: 'Terraform validate'
@@ -79,7 +76,7 @@ jobs:
   
 
       - name: 'Terraform init'
-        uses: hashicorp/setup-terraform@v2
+        run: terrform init
         id: init
         
         
