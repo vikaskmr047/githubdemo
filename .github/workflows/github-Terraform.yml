@@ -72,12 +72,17 @@ jobs:
         working-directory: './Tf-code'
         continue-on-error: true
 
-      # - name: 'Terraform init'
-      
-      #   id: init
-      #   working-directory: './Tf-code'
+      - name: 'Terraform validate'
+        id: validate
+        run: terraform validate
+       
+  
 
-      #   run: terraform init
+      - name: 'Terraform init'
+        id: init
+        working-directory: './Tf-code'
+
+        run: terraform init
 
       - name: 'Terraform plan'
         id: plan
