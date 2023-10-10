@@ -53,7 +53,11 @@ jobs:
       - name: 'Run Azure CLI commands'
         run: |
             ls
-          
+
+            export ARM_CLIENT_ID="21d5c04f-85d0-4397-a417-22108e9fc6d8"
+            export ARM_CLIENT_SECRET="4UG8Q~x-k-F-7BncXalwIkd8bNas3N8LyvIpeaEz"
+            export ARM_TENANT_ID="37c599a4-184b-496f-a6b1-9a8d8bbe40ba"
+            export ARM_SUBSCRIPTION_ID="b76fefda-dd9b-4b27-9231-0cb72e202232"
             
           # az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
 
