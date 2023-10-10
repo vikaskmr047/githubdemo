@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v3
         
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v2
@@ -79,6 +79,7 @@ jobs:
   
 
       - name: 'Terraform init'
+        uses: hashicorp/setup-terraform@v2
         id: init
         working-directory: './Tf-code'
 
