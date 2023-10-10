@@ -69,16 +69,14 @@ jobs:
         run: terraform fmt
         continue-on-error: true
 
-      - name: 'Terraform validate'
-        id: validate
-        run: terraform validate
-       
-  
-
       - name: 'Terraform init'
         run: terrform init
         id: init
         
+
+      - name: 'Terraform validate'
+        id: validate
+        run: terraform validate
         
 
       - name: 'Terraform plan'
