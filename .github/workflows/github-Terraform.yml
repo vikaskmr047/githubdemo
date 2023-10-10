@@ -58,23 +58,23 @@ jobs:
           # az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
 
           
-      # - name: 'Terraform Format'   
-      #   id: fmt
-      #   run: terraform fmt
-      #   working-directory: './Tf-code'
-      #   continue-on-error: true
+      - name: 'Terraform Format'   
+        id: fmt
+        run: terraform fmt
+        working-directory: './Tf-code'
+        continue-on-error: true
 
-      # - name: 'Terraform init'
+      - name: 'Terraform init'
       
-      #   id: init
-      #   working-directory: './Tf-code'
+        id: init
+        working-directory: './Tf-code'
 
-      #   run: terraform init
+        run: terraform init
 
-      # - name: 'Terraform plan'
-      #   id: plan
-      #   run: terraform plan
-      #   continue-on-error: false
+      - name: 'Terraform plan'
+        id: plan
+        run: terraform plan
+        continue-on-error: false
 
 
       
