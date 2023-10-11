@@ -1,6 +1,5 @@
 name: 'Terraform destroy'
 
-
 permissions:
   id-token: write
   contents: read
@@ -11,8 +10,7 @@ on:
       - feature
     paths:
      - 'github-destroy.yml' 
-    paths-ignore:
-      - "**"
+
   
 jobs:
   terrform:
