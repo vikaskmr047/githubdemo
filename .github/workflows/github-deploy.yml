@@ -76,11 +76,22 @@ jobs:
         id: apply
         run: |
          terraform apply -auto-approve || echo "apply_failed=true" >> $GITHUB_OUTPUT"
-         echo "resource_exists= $(grep -q 'A resource with the ID' ${{github.workspace}}/terraform.log && echo true || echo false)" >> $GITHUB_OUTPUT
-         if: steps.apply.outputs.apply_failed == 'true' && steps.check_existing_resource.outputs.resource_exists == 'true'
-           echo "Resource already exists hence exiting"
-         if: steps.apply.outputs.apply_failed == 'false'
-           echo "Apply successful"
+         
+      
+      - name: Check for Existing Resource
+        id: check_existing_resource
+        run: echo "resource_exists= $(grep -q 'A resource with the ID' ${{github.workspace}}/terraform.log && echo true || echo false)" >> $GITHUB_OUTPUT
+
+      - name: Handle apply failure
+        if: steps.apply.outputs.apply_failed =='true' && steps.check_existing_resource.outputs.resource_exists == 'true'
+        run: echo "Resource already exists hence exiting"
+        
+      
+      - name: Handle apply success
+        if: steps.apply.outputs.apply_failed == 'false'
+        run: echo "Apply successful"
+
+    
 
 
 
