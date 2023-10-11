@@ -40,10 +40,10 @@ jobs:
         with:
           terraform_version: 1.1.7
 
-      # - name: install azure-cli
-      #   run: |
-      #    az --version
-      #    terraform version
+      - name: Check terraform version
+        run: |
+         az --version
+         terraform version
     
       - name: Authenticate using a Service Principal
         uses: azure/login@v1
@@ -51,18 +51,6 @@ jobs:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-      # - name: 'Run Azure CLI commands'
-      #   run: |
-      #       ls
-
-      #       export ARM_CLIENT_ID="21d5c04f-85d0-4397-a417-22108e9fc6d8"
-      #       export ARM_CLIENT_SECRET="4UG8Q~x-k-F-7BncXalwIkd8bNas3N8LyvIpeaEz"
-      #       export ARM_TENANT_ID="37c599a4-184b-496f-a6b1-9a8d8bbe40ba"
-      #       export ARM_SUBSCRIPTION_ID="b76fefda-dd9b-4b27-9231-0cb72e202232"
-            
-          # az login --service-principal -u ${{ secrets.ARM_CLIENT_ID }} -p ${{ secrets.ARM_CLIENT_SECRET }} --tenant ${{ secrets.ARM_TENANT_ID }}
-
           
       - name: 'Terraform Format'   
         id: fmt
@@ -83,12 +71,12 @@ jobs:
         id: plan
         run: terraform plan
         continue-on-error: false
-        # env:
-        #   ARM_SUBSCRIPTION_ID: ${{ secrets.ARM_SUBSCRIPTION_ID }}
-        #   ARM_CLIENT_ID: ${{ secrets.ARM_CLIENT_ID }}
-        #   ARM_CLIENT_SECRETt: ${{ secrets.ARM_CLIENT_SECRET }}
-        #   ARM_TENANT_ID: ${{ secrets.ARM_TENANT_ID }}
 
+      - name: Terraform apply
+        id: apply
+        run terraform apply
+        
+   
       
 
 
