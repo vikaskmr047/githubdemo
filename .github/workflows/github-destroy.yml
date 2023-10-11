@@ -5,7 +5,11 @@ permissions:
   id-token: write
   contents: read
 
-on: {}
+on:
+  push:
+    branches:
+      - feature
+  
   
 jobs:
   terrform:
