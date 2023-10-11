@@ -74,7 +74,13 @@ jobs:
 
       - name: Terraform apply
         id: apply
-        run: terraform apply -auto-approve > terraform.log 2>&1
+        run: |
+         terraform apply -auto-approve 
+         if [[ "$(terraform output -json | jq -r '.[0].error.message')" == "Resource already exists" ]]; then
+            echo "Resource already exists"
+          else
+            echo "Terraform apply succeeded"
+          fi
          
       # - name: Check output
       #   run: |
