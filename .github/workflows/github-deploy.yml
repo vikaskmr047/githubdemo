@@ -74,20 +74,34 @@ jobs:
 
       - name: Terraform apply
         id: apply
-        run: terraform apply -auto-approve || echo "::set-output name=apply_failed::true"
+        run: |
+         terraform apply -auto-approve || echo "apply_failed=true" >> $GITHUB_OUTPUT"
+         echo "resource_exists= $(grep -q 'A resource with the ID' ${{github.workspace}}/terraform.log && echo true || echo false)" >> $GITHUB_OUTPUT
+         if: steps.apply.outputs.apply_failed == 'true' && steps.check_existing_resource.outputs.resource_exists == 'true'
+           echo "Resource already exists hence exiting"
+         if: steps.apply.outputs.apply_failed == 'false'
+           echo "Apply successful"
 
 
-      - name: Check for Existing Resource
-        id: check_existing_resource
-        run: echo "::set-output name=resource_exists::$(grep -q 'A resource with the ID' ${{github.workspace}}/terraform.log && echo true || echo false)"
 
-      - name: Handle Apply Failure
-        if: steps.apply.outputs.apply_failed == 'true' && steps.check_existing_resource.outputs.resource_exists == 'true'
-        run: echo "Resource already exists hence exiting"
 
-      - name: Handle Apply Success
-        if: steps.apply.outputs.apply_failed == 'false'
-        run: echo "Apply successful"
+
+      # - name: Terraform apply
+      #   id: apply
+      #   run: terraform apply -auto-approve || echo "::set-output name=apply_failed::true"
+
+
+      # - name: Check for Existing Resource
+      #   id: check_existing_resource
+      #   run: echo "::set-output name=resource_exists::$(grep -q 'A resource with the ID' ${{github.workspace}}/terraform.log && echo true || echo false)"
+
+      # - name: Handle Apply Failure
+      #   if: steps.apply.outputs.apply_failed == 'true' && steps.check_existing_resource.outputs.resource_exists == 'true'
+      #   run: echo "Resource already exists hence exiting"
+
+      # - name: Handle Apply Success
+      #   if: steps.apply.outputs.apply_failed == 'false'
+      #   run: echo "Apply successful"
 
         
 
