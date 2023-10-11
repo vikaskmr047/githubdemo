@@ -74,7 +74,14 @@ jobs:
 
       - name: Terraform apply
         id: apply
-        run: terraform apply -auto-approve
+        run: terraform apply -auto-approve || echo "::set-output name=apply_failed::true"
+
+
+      - name: Check for Existing Resource
+        id: check_existing_resource
+        run: echo "::set-output name=resource_exists::$(grep -q 'A resource with the ID' ${{github.workspace}}/terraform.log && echo true || echo false)"
+
+        
 
    
       
