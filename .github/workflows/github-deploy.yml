@@ -10,7 +10,7 @@ on:
      branches: 
      - feature
      paths:
-      - 'github-deploy.yml'
+     - 'github-deploy.yml'
    pull_request:
 
   
