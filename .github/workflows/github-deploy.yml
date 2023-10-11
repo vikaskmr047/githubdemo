@@ -9,8 +9,8 @@ on:
    push:
      branches: 
      - feature
-     paths-ignore:
-      - 'github-destroy.yml'
+     paths:
+      - 'github-deploy.yml'
    pull_request:
 
   
