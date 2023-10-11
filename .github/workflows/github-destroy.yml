@@ -11,8 +11,6 @@ on:
       - feature
     paths:
      - 'github-destroy.yml'
-    paths-ignore:
-     - '**'
   
 
   
