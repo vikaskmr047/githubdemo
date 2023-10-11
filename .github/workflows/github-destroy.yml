@@ -8,8 +8,9 @@ on:
   push:
     branches:
       - feature
-    paths:
-     - 'github-destroy.yml' 
+    paths-ignore:
+     - '!github-destroy.yml' 
+     - '**'
 
   
 jobs:
