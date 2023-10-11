@@ -1,4 +1,4 @@
-name: 'Terraform'
+name: 'Terraform deploy'
 
 
 permissions:
@@ -9,12 +9,14 @@ on:
    push:
      branches: 
      - feature
+     paths-ignore:
+      - 'github-destroy.yml'
    pull_request:
 
   
 jobs:
   terrform:
-    name: 'Terraform'
+    name: 'Terraform deploy'
    
 
     env:
