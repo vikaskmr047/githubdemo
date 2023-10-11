@@ -10,10 +10,7 @@ on:
     branches:
       - feature
     paths:
-     - 'github-destroy.yml'
-  
-
-  
+     - 'github-destroy.yml' 
   
 jobs:
   terrform:
