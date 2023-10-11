@@ -1,16 +1,12 @@
 name: 'Terraform destroy'
 
-permissions:
-  id-token: write
-  contents: read
-
 on:
   push:
     branches:
       - feature
     paths-ignore:
      - '!github-destroy.yml' 
-     - '**'
+ 
  
 jobs:
   terrform:
@@ -40,11 +36,6 @@ jobs:
         with:
           terraform_version: 1.1.7
 
-      - name: Check terraform version
-        run: |
-         az --version
-         terraform version
-    
       - name: Authenticate using a Service Principal
         uses: azure/login@v1
         with:
