@@ -74,13 +74,14 @@ jobs:
 
       - name: Terraform apply
         id: apply
+        continue-on-error: true
         run: |
          terraform apply -auto-approve 2>&1 | tee apply_output.txt
          if grep -q 'A resource with the ID "/subscriptions/"' apply_output.txt; then
             echo "resource_exists=true" >> "$GITHUB_OUTPUT"
             echo "Resource already exists"
          else
-         
+
             echo "Apply successful"
 
 
