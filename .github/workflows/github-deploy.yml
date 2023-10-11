@@ -9,8 +9,7 @@ on:
    push:
      branches: 
      - feature
-     paths:
-     - 'github-deploy.yml'
+    
   
 jobs:
   terrform:
