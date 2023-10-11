@@ -3,13 +3,13 @@ name: 'Terraform destroy'
 permissions:
   id-token: write
   contents: read
-  
+
 on:
   push:
     branches:
       - feature
-    paths-ignore:
-     - '!github-destroy.yml' 
+    # paths-ignore:
+    #  - '!github-destroy.yml' 
  
  
 jobs:
