@@ -69,31 +69,31 @@ jobs:
 
       - name: 'Terraform plan'
         id: plan
-        run: terraform plan
+        run: terraform plan -out=terraform.plan
         continue-on-error: false
 
       - name: Terraform apply
         id: apply
-        run: terraform apply -auto-approve > terraform.log 
+        run: terraform apply -auto-approve 
          
-      - name: Check output
-        run: |
-         echo "apply_failed=true" >> "$GITHUB_OUTPUT"
-         echo "The output of apply block is $GITHUB_OUTPUT"
+      # - name: Check output
+      #   run: |
+      #    echo "apply_failed=true" >> "$GITHUB_OUTPUT"
+      #    echo "The output of apply block is $GITHUB_OUTPUT"
          
       
-      - name: Check for Existing Resource
-        id: check_existing_resource
-        run: echo "resource_exists= $(grep -q 'A resource with the ID' ${{github.workspace}}/terraform.log && echo true || echo false)" >> "$GITHUB_OUTPUT"
+      # - name: Check for Existing Resource
+      #   id: check_existing_resource
+      #   run: echo "resource_exists= $(grep -q 'A resource with the ID' ${{github.workspace}}/terraform.log && echo true || echo false)" >> "$GITHUB_OUTPUT"
 
-      - name: Handle apply failure
-        if: steps.apply.outputs.apply_failed =='true' && steps.check_existing_resource.outputs.resource_exists == 'true'
-        run: echo "Resource already exists hence exiting"
+      # - name: Handle apply failure
+      #   if: steps.apply.outputs.apply_failed =='true' && steps.check_existing_resource.outputs.resource_exists == 'true'
+      #   run: echo "Resource already exists hence exiting"
         
       
-      - name: Handle apply success
-        if: steps.apply.outputs.apply_failed == 'false'
-        run: echo "Apply successful"
+      # - name: Handle apply success
+      #   if: steps.apply.outputs.apply_failed == 'false'
+      #   run: echo "Apply successful"
 
     
 
