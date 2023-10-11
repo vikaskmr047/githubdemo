@@ -11,7 +11,7 @@ on:
      - feature
      paths:
      - 'github-deploy.yml'
-   pull_request:
+
 
   
 jobs:
