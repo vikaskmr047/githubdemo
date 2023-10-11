@@ -83,6 +83,10 @@ jobs:
         id: plan
         run: terraform plan
         continue-on-error: false
+        env:
+          AZURE_RM_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+          AZURE_RM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
+          AZURE_RM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
 
 
       
