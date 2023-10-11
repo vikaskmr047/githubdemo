@@ -74,7 +74,7 @@ jobs:
 
       - name: Terraform apply
         id: apply
-        run: terraform apply -auto-approve -log=terraform.log 
+        run: terraform apply -auto-approve > terraform.log 
          
       - name: Check output
         run: |
