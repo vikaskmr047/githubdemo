@@ -74,8 +74,11 @@ jobs:
 
       - name: Terraform apply
         id: apply
+        run: terraform apply -auto-approve -out=terraform.log 
+         
+      - name: Check output
         run: |
-         terraform apply -auto-approve -out=terraform.log || echo "apply_failed=true" >> "$GITHUB_OUTPUT"
+         echo "apply_failed=true" >> "$GITHUB_OUTPUT"
          echo "The output of apply block is $GITHUB_OUTPUT"
          
       
